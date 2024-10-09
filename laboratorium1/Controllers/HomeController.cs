@@ -10,7 +10,7 @@ namespace laboratorium1.Controllers
 
         public enum Operator
         {
-            Unknown, Add, Mul, Sub, Div
+             Unknown, Add, Mul, Sub, Div
         }
         public HomeController(ILogger<HomeController> logger)
         {
