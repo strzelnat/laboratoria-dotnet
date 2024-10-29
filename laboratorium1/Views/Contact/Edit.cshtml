@@ -36,6 +36,15 @@
             <span asp-validation-for="BirthDate"></span>
         </div>
 
+        <div>
+            <label class="form-label" asp-for="Category">Category:</label>
+            <<select class="form-control" asp-for="Category">
+                <option value="1">Family</option>
+                <option value="2">Friend</option>
+                <option value="4">Business</option>
+            </select>
+            <span asp-validation-for="Category"></span>
+        </div>
 
         <button type="submit" class="btn btn-outline-primary">Save</button>
         <a asp-action="Index" asp-controller="Contact" class="btn btn-outline-primary">Cancel</a>
