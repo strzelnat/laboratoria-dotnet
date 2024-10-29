@@ -1,0 +1,11 @@
+﻿@model laboratorium1.Models.Contact
+
+<h2>Potwierdzenie usunięcia kontaktu</h2>
+
+<p>Czy na pewno chcesz usunąć kontakt <strong>@Model.FirstName @Model.LastName</strong>?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>

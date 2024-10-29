@@ -1,88 +1,85 @@
-﻿using laboratorium1.Models;
+﻿using laboratorium1.Models.Services;
+using laboratorium1.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace laboratorium1.Controllers
+public class ContactController : Controller
 {
-    public class ContactController : Controller
+    private readonly IContactService _contactService;
+
+    public ContactController(IContactService contactService)
     {
-        // rozw tymczasowe 
+        _contactService = contactService;
+    }
 
-        private static Dictionary<int, Contact> _contacts = new Dictionary<int, Contact>()
-        {
-           
-        };
+    // Lista kontaktów
+    public IActionResult Index()
+    {
+        var contacts = _contactService.GetAll();
+        return View(contacts);
+    }
 
-        //lista kontaktów
-        public IActionResult Index()
+    // Dodawanie kontaktu / formularz
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Add(Contact contact)
+    {
+        if (ModelState.IsValid)
         {
-            return View(_contacts);
+            _contactService.Add(contact);
+            return RedirectToAction("Index");
         }
 
-        //dodawanie kontaktu / formularz
+        return View(contact);
+    }
 
-        public IActionResult Add()
+    // Widok potwierdzenia usunięcia
+    public IActionResult Delete(int id)
+    {
+        var contact = _contactService.GetById(id);
+        if (contact == null)
         {
-            return View();
-        }
-
-        [HttpPost] //tu zwracam dane z formularza i zapisanie  w kontaktach
-        public IActionResult Add(Contact contact)
-        {
-            if(ModelState.IsValid)
-            {
-
-                int id = _contacts.Keys.Count != 0 ? _contacts.Keys.Max() : 0;
-                contact.Id = id + 1;
-                _contacts.Add(contact.Id, contact);
-
-                return RedirectToAction("Index",_contacts);
-            }
-
-            return View(contact);
-        }
-
-
-        public IActionResult Delete(int id)
-        {
-            if(_contacts.ContainsKey(id))
-            {
-                _contacts.Remove(id);
-                return RedirectToAction("Index",_contacts);
-            }
-
-            return View("Index");
-        }
-
-        public IActionResult Details(int id)
-        {
-            return View(_contacts[id]);
-        }
-
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            if(_contacts.ContainsKey(id))
-            {
-                return View(_contacts[id]);
-            }
-
             return NotFound();
         }
+        return View(contact);
+    }
 
+    // Usunięcie kontaktu
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        _contactService.Delete(id);
+        return RedirectToAction("Index");
+    }
 
-        [HttpPost]
-        public IActionResult Edit(Contact contact)
+    public IActionResult Details(int id)
+    {
+        var contact = _contactService.GetById(id);
+        if (contact == null)
         {
-            if (ModelState.IsValid)
-            {
-                _contacts[contact.Id] = contact;
-                return RedirectToAction("Index", _contacts);
-            }
+            return NotFound();
+        }
+        return View(contact);
+    }
 
-            return View(contact);
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        return View(_contactService.GetById(id));
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Contact contact)
+    {
+        if (ModelState.IsValid)
+        {
+            _contactService.Update(contact);
+            return RedirectToAction("Index");
         }
 
-
+        return View(contact);
     }
 }

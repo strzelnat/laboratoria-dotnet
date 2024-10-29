@@ -1,3 +1,5 @@
+using laboratorium1.Models.Services;
+
 namespace laboratorium1
 {
     public class Program
@@ -8,6 +10,7 @@ namespace laboratorium1
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IContactService, MemoryContactService>();
 
             var app = builder.Build();
 
