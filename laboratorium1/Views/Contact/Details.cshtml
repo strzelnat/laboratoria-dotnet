@@ -14,6 +14,7 @@
     <h3>Phone number: @Model.Telephone</h3>
     <h3>Date of birth: @Model.BirthDate.ToString("yyyy-MM-dddd")</h3>
     <h3>Email: @Model.Email</h3>
+    <h3>Category: @Model.Category.GetDisplayName()</h3>
 
     <a asp-action="Index" asp-controller="Contact" class="btn btn-outline-primary">Back to menu</a>
 </p>

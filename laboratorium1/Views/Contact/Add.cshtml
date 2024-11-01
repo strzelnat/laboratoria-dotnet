@@ -34,10 +34,7 @@
 
         <div>
             <label class="form-label" asp-for="Category"></label>
-            <select class="form-control" asp-for="Category">
-                <option value="1">Family</option>
-                <option value="2">Friend</option>
-                <option value="4">Business</option>
+            <select class="form-control" asp-for="Category" asp-items="@Html.GetEnumSelectList<Category>()">
             </select>
             <span asp-validation-for="Category"></span>
         </div>

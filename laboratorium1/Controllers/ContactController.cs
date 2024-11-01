@@ -65,11 +65,11 @@ public class ContactController : Controller
         return View(contact);
     }
 
-    [HttpGet]
-    public IActionResult Edit(int id)
-    {
-        return View(_contactService.GetById(id));
-    }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(_contactService.GetById(id));
+        }
 
     [HttpPost]
     public IActionResult Edit(Contact contact)

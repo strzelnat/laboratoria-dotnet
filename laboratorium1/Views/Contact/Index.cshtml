@@ -5,6 +5,8 @@
     Layout = "_Layout";
 }
 
+
+
 <h2>Kontakty</h2>
 <a class="btn btn-primary" asp-action="Add" asp-controller="Contact">Dodaj kontakt</a>
 
@@ -13,10 +15,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model[0].FirstName)</th> 
-                <th>@Html.DisplayNameFor(model => model[0].LastName)</th>
-                <th>@Html.DisplayNameFor(model => model[0].Category)</th>
-                <th class="text-end">Operacje</th> 
+                <th>@Html.DisplayNameFor(Model => Model[0].FirstName)</th>
+                <th>@Html.DisplayNameFor(Model => Model[0].LastName)</th>
+                <th>@Html.DisplayNameFor(Model => Model[0].Category)</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,19 +29,12 @@
                     <td>@entry.LastName</td>
                     <td>@entry.Category.GetDisplayName()</td>
                     <td>
-                    <td>
-                        <a class="btn btn-success" asp-action="Edit" asp-controller="Contact" asp-route-id="@entry.Id">Edytuj</a>
-                        <a class="btn btn-info" asp-action="Details" asp-controller="Contact" asp-route-id="@entry.Id">Szczegóły</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Contact" asp-route-id="@entry.Id">Usuń</a>
-                    </td>
-
+                        <a class="btn btn-success" asp-action="Edit" asp-controller="Contact" asp-route-id="@entry.Id">Edit</a>
+                        <a class="btn btn-info" asp-action="Details" asp-controller="Contact" asp-route-id="@entry.Id">Details</a>
+                        <a asp-controller="Contact" asp-action="Delete" asp-route-id="@entry.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
-else
-{
-    <h1>No contacts...</h1>
 }
