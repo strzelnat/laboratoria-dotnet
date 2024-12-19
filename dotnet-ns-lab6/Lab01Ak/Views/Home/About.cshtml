@@ -1,0 +1,112 @@
+﻿@model dynamic
+
+@{
+Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb; /* Jasnoniebieskie tło */
+            color: #333;
+        }
+
+        /* Stylowanie menu */
+        nav {
+            background-color: #ffffff; /* Białe tło dla menu */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lekki cień pod menu */
+            position: sticky;
+            top: 0; /* Menu pozostaje na górze ekranu */
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px; /* Wysokość menu */
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #007bff; /* Delikatny niebieski kolor tekstu */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 15px;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s; /* Płynna zmiana koloru */
+        }
+
+        nav ul li a:hover {
+            background-color: #f0f8ff; /* Delikatny niebieski tło przy hover */
+            color: #0056b3; /* Ciemniejszy niebieski kolor tekstu */
+            border-radius: 4px; /* Zaokrąglone rogi przy hover */
+        }
+
+        /* Główna treść */
+        .content {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        header h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        /* Stopka */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            color: #555;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Menu na górze -->
+<nav>
+    <ul>
+        <li><a href="/">Strona główna</a></li>
+        <li><a href="/contact">Kontakt</a></li>
+        <li><a href="/employee">Pracownik</a></li>
+        <li><a href="/organization">Organizacja</a></li>
+    </ul>
+</nav>
+
+<div class="content">
+    <header>
+        <h2>Aplikacja stworzona przez Natalię Strzelczyk</h2>
+    </header>
+</div>
+
+<footer>
+    <p>&copy; 2024 Wszystkie prawa zastrzeżone.</p>
+</footer>
+
+</body>
+</html>
