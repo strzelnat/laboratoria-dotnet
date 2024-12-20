@@ -1,0 +1,40 @@
+﻿@model Employee
+
+<h2>Usuń pracownika</h2>
+
+<h3>Czy na pewno chcesz usunąć tego pracownika?</h3>
+
+<dl class="row">
+    <dt class="col-sm-2">Imię</dt>
+    <dd class="col-sm-10">@Model.FirstName</dd>
+
+    <dt class="col-sm-2">Nazwisko</dt>
+    <dd class="col-sm-10">@Model.LastName</dd>
+
+    <dt class="col-sm-2">Stanowisko</dt>
+    <dd class="col-sm-10">@Model.Position</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Anuluj</a>
+</form>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+      
+</div>
+</body>
+</html>

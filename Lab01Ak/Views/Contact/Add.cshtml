@@ -1,0 +1,53 @@
+﻿@model ContactModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2>Add a contact: </h2>
+
+<div class="col-6">
+    <form asp-action="Add" asp-controller="Contact" method="post" >
+        <div>
+            <label class ="form-label" asp-for="FirstName"></label>
+            <input  class = "form-control" asp-for="FirstName" type="text"/>
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label class="form-label" asp-for="LastName"></label>
+            <input class="form-control"  asp-for="LastName" type="text" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label class="form-label"  asp-for="Email"></label>
+            <input class="form-control"  asp-for="Email" type="email" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label class="form-label"  asp-for="PhoneNumber"></label>
+            <input class="form-control"  asp-for="PhoneNumber" type="tel" />
+            <span asp-validation-for="PhoneNumber"></span>
+        </div>
+        <div>
+            <label class="form-label"  asp-for="BirthDate"></label>
+            <input class="form-control"  asp-for="BirthDate" type="date" />
+            <span asp-validation-for="BirthDate"></span>
+        </div>
+
+        <div>
+            <label class="form-label"  asp-for="Category"></label>
+            <select
+                class="form-control"
+                asp-items="@Html.GetEnumSelectList<Category>()"
+                asp-for="Category">
+                
+            </select>
+            <span asp-validation-for="Category"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-outline-primary">Add</button>
+    </form>
+
+</div>
