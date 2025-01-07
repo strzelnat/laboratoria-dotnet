@@ -1,0 +1,43 @@
+﻿@model Gravity.Models.ViewModels.BookEditViewModel
+
+@{
+ViewBag.Title = "Edycja książki";
+Layout = "_Layout";
+}
+
+<h2>Edycja książki</h2>
+
+<form asp-controller="Books" asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="BookId" />
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label">Tytuł</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Isbn13" class="control-label">ISBN-13</label>
+        <input asp-for="Isbn13" class="form-control" />
+        <span asp-validation-for="Isbn13" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumPages" class="control-label">Liczba stron</label>
+        <input asp-for="NumPages" class="form-control" type="number" min="1" />
+        <span asp-validation-for="NumPages" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PublicationDate" class="control-label">Data publikacji</label>
+        <input asp-for="PublicationDate" class="form-control" type="date" />
+        <span asp-validation-for="PublicationDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a asp-action="Index" asp-controller="Authors" class="btn btn-secondary">Anuluj</a>
+    </div>
+</form>
