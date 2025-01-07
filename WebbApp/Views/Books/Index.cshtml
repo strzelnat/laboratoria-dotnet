@@ -1,0 +1,101 @@
+﻿
+@model Gravity.Helpers.PaginatedList<Gravity.Models.ViewModels.BookViewModel>
+
+@{
+ViewBag.Title = "Lista książek";
+Layout = "_Layout";
+}
+
+@section Scripts {
+<script>
+    document.getElementById('searchTitle').addEventListener('keyup', function () {
+        const searchValue = this.value;
+
+        fetch(`@Url.Action("Index", "Books")?searchTitle=${encodeURIComponent(searchValue)}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('booksRows').innerHTML = html;
+            })
+            .catch(error => console.error('Błąd:', error));
+    });
+</script>
+}
+
+<h2>Lista książek</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Dodaj nową książkę</a>
+</div>
+
+<div class="mb-3">
+    <input type="text" id="searchTitle" class="form-control" placeholder="Szukaj po tytule..." />
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tytuł</th>
+        <th>ISBN13</th>
+        <th>Liczba stron</th>
+        <th>Data publikacji</th>
+        <th>Liczba autorów</th>
+        <th>Liczba sprzedanych egzemplarzy</th>
+    </tr>
+    </thead>
+    <tbody id="booksRows">
+    <partial name="_BooksTable" model="Model" />
+    </tbody>
+</table>
+
+<div class="pagination-container position-relative">
+    <div class="pagination d-flex justify-content-center">
+        <!-- Pierwsza strona -->
+        @if (Model.PageIndex == 1)
+        {
+        <span class="btn btn-primary mx-2 active">1</span>
+        }
+        else
+        {
+        <a asp-action="Index" asp-route-pageNumber="1" asp-route-searchTitle="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">1</a>
+        }
+
+        @if (Model.PageIndex > 4)
+        {
+        <span class="mx-2">...</span>
+        }
+
+        @for (int i = Math.Max(2, Model.PageIndex - 2); i <= Math.Min(Model.TotalPages - 1, Model.PageIndex + 2); i++)
+        {
+        if (i == Model.PageIndex)
+        {
+        <span class="btn btn-primary mx-2 active">@i</span>
+        }
+        else
+        {
+        <a asp-action="Index" asp-route-pageNumber="@i" asp-route-searchTitle="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">@i</a>
+        }
+        }
+
+        @if (Model.PageIndex < Model.TotalPages - 3)
+        {
+        <span class="mx-2">...</span>
+        }
+
+        @if (Model.PageIndex == Model.TotalPages)
+        {
+        <span class="btn btn-primary mx-2 active">@Model.TotalPages</span>
+        }
+        else
+        {
+        <a asp-action="Index" asp-route-pageNumber="@(Model.TotalPages)" asp-route-searchTitle="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">@Model.TotalPages</a>
+        }
+    </div>
+
+    <div class="page-info position-absolute text-end">
+        Strona @Model.PageIndex z @Model.TotalPages
+    </div>
+</div>

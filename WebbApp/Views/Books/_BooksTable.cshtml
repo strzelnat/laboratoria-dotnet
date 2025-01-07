@@ -1,0 +1,19 @@
+﻿@model Gravity.Helpers.PaginatedList<Gravity.Models.ViewModels.BookViewModel>
+
+<tbody>
+@foreach (var book in Model)
+{
+    <tr>
+        <td>@book.Title</td>
+        <td>@book.Isbn13</td>
+        <td>@book.NumPages</td>
+        <td>@book.PublicationDate?.ToString("yyyy-MM-dd")</td>
+        <td>
+            <a asp-action="AuthorsByBook" asp-controller="Author" asp-route-bookId="@book.BookId">
+                @book.AuthorsCount
+            </a>
+        </td>
+        <td>@book.CopiesSold</td>
+    </tr>
+}
+</tbody>

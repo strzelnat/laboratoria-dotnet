@@ -1,0 +1,74 @@
+﻿@model Gravity.Helpers.PaginatedList<Gravity.Models.ViewModels.AuthorViewModel>
+
+@{
+ViewBag.Title = "Lista autorów";
+Layout = "_Layout";
+}
+
+<h2>Lista autorów</h2>
+
+<!-- Pole wyszukiwania w nagłówku tabeli -->
+<input type="text" id="authorSearch" placeholder="Wyszukaj autora..." class="form-control mb-3" />
+
+<!-- Tabela z listą autorów -->
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Imię i nazwisko</th>
+        <th>Książki</th>
+    </tr>
+    </thead>
+    <tbody id="authorsRows">
+    @await Html.PartialAsync("_AuthorsTable", Model)
+    </tbody>
+</table>
+
+<!-- Kontener z paginacją (przyciski zmiany strony) -->
+<div class="pagination-container position-relative">
+    <div class="pagination d-flex justify-content-center">
+        @if (Model.PageIndex > 1)
+        {
+        <a asp-action="Index" asp-route-pageNumber="1" asp-route-searchAuthor="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">1</a>
+        }
+        @for (int i = Math.Max(1, Model.PageIndex - 2); i <= Math.Min(Model.TotalPages, Model.PageIndex + 2); i++)
+        {
+        if (i == Model.PageIndex)
+        {
+        <span class="btn btn-primary mx-2 active">@i</span>
+        }
+        else
+        {
+        <a asp-action="Index" asp-route-pageNumber="@i" asp-route-searchAuthor="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">@i</a>
+        }
+        }
+        @if (Model.PageIndex < Model.TotalPages)
+        {
+        <a asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-searchAuthor="@ViewData["CurrentFilter"]" class="btn btn-primary mx-2">@Model.TotalPages</a>
+        }
+    </div>
+    <div class="page-info position-absolute text-end">
+        Strona @Model.PageIndex z @Model.TotalPages
+    </div>
+</div>
+
+<!-- Skrypt do dynamicznego wyszukiwania autorów -->
+<script>
+    document.getElementById('authorSearch').addEventListener('input', async function () {
+        const query = this.value.trim();
+
+        try {
+            const response = await fetch(`/authors?searchAuthor=${encodeURIComponent(query)}`, {
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            });
+
+            if (response.ok) {
+                const data = await response.text();
+                document.getElementById('authorsRows').innerHTML = data;
+            } else {
+                console.error('Błąd pobierania danych:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Błąd sieci:', error);
+        }
+    });
+</script>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Gravity.Models.Books.Author>
+
+@{
+    ViewBag.Title = "Autorzy książki";
+    Layout = "_Layout";
+}
+
+<h2>Autorzy książki</h2>
+
+@if (Model.Any())
+{
+    <ul class="list-group">
+        @foreach (var author in Model)
+        {
+            <li class="list-group-item">@author.AuthorName</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Brak autorów przypisanych do tej książki.</p>
+}
+
+<a asp-action="Index" asp-controller="Books" class="btn btn-secondary mt-3">Powrót do książek</a>

@@ -1,0 +1,36 @@
+﻿@model Gravity.Helpers.PaginatedList<Gravity.Models.ViewModels.AuthorViewModel>
+
+@if (!Model.Any())
+{
+<tr>
+    <td colspan="2">Brak wyników dla podanej frazy.</td>
+</tr>
+}
+else
+{
+@foreach (var author in Model.Distinct())
+{
+<tr>
+    <td>@author.AuthorName</td>
+    <td>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton-@author.AuthorId"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Wybierz książkę
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-@author.AuthorId">
+                @foreach (var book in author.Books.Distinct())
+                {
+                <li>
+                    <a class="dropdown-item" href="@Url.Action("Edit", "Books", new { bookId = book.BookId })">
+                        @book.Title
+                    </a>
+                </li>
+                }
+            </ul>
+        </div>
+    </td>
+</tr>
+}
+}
